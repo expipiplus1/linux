@@ -60,6 +60,20 @@
 			debounce-interval = <50>;
 		};
 	};
+
+	soc {
+		base_fpga_region: base-fpga-region {
+			compatible = "fpga-region";
+			fpga-mgr = <&fpgamgr0>;
+			fpga-bridges = <&fpga_bridge0>, <&fpga_bridge1>,
+					<&fpga_bridge2>, <&fpga_bridge3>;
+
+			#address-cells = <0x2>;
+			#size-cells = <0x1>;
+			ranges = <0x00000000 0x00000000 0xc0000000 0x20000000>,
+				<0x00000001 0x00000000 0xff200000 0x00200000>;
+		};
+	};
 };
 
 &gmac1 {
@@ -119,15 +133,4 @@
 
 &usb1 {
 	status = "okay";
-};
-
-&fpga_bridge0 {        /* LWHPS2FPGA @ 0xff200000 */
-       #address-cells = <1>;
-       #size-cells = <1>;
-       ranges;
-
-       fpga_region0: fpga-region0 {
-               compatible = "fpga-region";
-               fpga-mgr = <&fpgamgr0>;
-       };
 };
